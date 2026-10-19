@@ -86,6 +86,29 @@ check(
 check("golpe a jitomate pega más que a papa", Freshness.hit(100, 0.9, 1) < Freshness.hit(100, 0.15, 1))
 check("frescura no baja de 0", Freshness.decay(5, 10, 100) == 0)
 
+-- Lotes
+local Lots = require("../src/shared/Lots")
+local a = Lots.new("a", "jitomate_saladette", 10, 90, 1, 300)
+local cut = Lots.take(a, 4, "b")
+check("sacar 4 de 10 deja 6", a.units == 6 and cut ~= nil and cut.units == 4)
+check("no se saca más de lo que hay", Lots.take(a, 7, "c") == nil and a.units == 6)
+check("no se sacan fracciones ni negativos", Lots.take(a, 1.5, "c") == nil and Lots.take(a, -1, "c") == nil)
+local b = Lots.new("d", "jitomate_saladette", 10, 80, 1, 200)
+check("frescura 90 vs 80 no se junta", not Lots.canMerge(a, b))
+local c2 = Lots.new("e", "jitomate_saladette", 2, 88, 1, 360)
+check("frescura parecida sí se junta", Lots.canMerge(a, c2))
+Lots.merge(a, c2)
+check("merge suma unidades", a.units == 8)
+check("merge pondera costo", near(a.cost, (6 * 300 + 2 * 360) / 8))
+check("otro dueño no se junta", not Lots.canMerge(a, Lots.new("f", "jitomate_saladette", 1, 90, 2, 300)))
+Lots.age(a, 144, 144)
+check("envejecer toda la vida útil = basura", Lots.grade(a) == "basura")
+local catalog = { jitomate_saladette = jitomate }
+check("validate acepta lote bueno", Lots.validate({ id = "x", product = "jitomate_saladette", units = 3, freshness = 50, owner = 1, cost = 10 }, catalog) ~= nil)
+check("validate rechaza producto inventado", Lots.validate({ id = "x", product = "oro", units = 3, freshness = 50, owner = 1, cost = 10 }, catalog) == nil)
+check("validate rechaza unidades raras", Lots.validate({ id = "x", product = "jitomate_saladette", units = 0, freshness = 50, owner = 1, cost = 10 }, catalog) == nil)
+check("validate rechaza NaN", Lots.validate({ id = "x", product = "jitomate_saladette", units = 1, freshness = 0 / 0, owner = 1, cost = 10 }, catalog) == nil)
+
 print(`\n{total - failures}/{total} pruebas OK`)
 if failures > 0 then
 	error(`{failures} pruebas fallaron`)

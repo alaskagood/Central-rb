@@ -48,6 +48,10 @@ function RoleService.start()
 		if typeof(roleId) ~= "string" or Roles[roleId :: Roles.RoleId] == nil then
 			return -- dato inválido del cliente: se ignora
 		end
+		if not player:GetAttribute("DataLoaded") then
+			Remotes.get("RoleRejected"):FireClient(player, "Cargando tus datos, espera tantito…")
+			return
+		end
 		if player:GetAttribute("Role") ~= nil then
 			Remotes.get("RoleRejected")
 				:FireClient(player, "Ya tienes oficio. Cámbialo en el kiosco de la entrada.")

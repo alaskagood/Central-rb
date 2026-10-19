@@ -9,6 +9,7 @@ local NAMES = {
 	"RoleAssigned", -- servidor → cliente: (roleId)
 	"RoleRejected", -- servidor → cliente: (reason)
 	"Notify", -- servidor → cliente: (text)
+	"Inventory", -- servidor → cliente: ({Lot}) lo que trae el jugador
 }
 
 local Remotes = {}
