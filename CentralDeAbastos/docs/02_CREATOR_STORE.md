@@ -39,6 +39,20 @@ o create.roblox.com/store). Solo si no hay uno bueno, se crea.
 | Animaciones (empujar, cargar caja) | Animaciones de la Tienda / Animation Pack de Roblox | Editor de animación de Studio |
 | Sonido de ambiente (mercado, motores, claxon) | Sección *Audio* de la Tienda | Grabación propia en la CEDA |
 
+## Candidatos encontrados (2026-10-18, falta revisar scripts y escala en Studio)
+Buscados con `search_assets` del MCP y revisados por miniatura. **No son aceptados todavía.**
+| Clave | ID | Nombre en la Tienda | Nota |
+|---|---|---|---|
+| Diablito | 13716850153 | Carretilla | Diablito amarillo realista, llantas neumáticas. Primera opción |
+| Diablito | 18175462836 | Sackbarrow | Alterna |
+| CajaMadera | 126648667803392 | Apple Crate Wooden Box | Caja de madera con fruta roja; 34 partes, sin scripts (según autor) |
+| Bodega (cortina) | 139065864553256 | Shutter Door Roll Up Garage Doors | Cortina metálica, 5 partes, sin scripts. Bodega = esta cortina + muros propios |
+| Caseta (pluma) | 17117352174 | Advanced Toll Booth Gate | Pluma roja/blanca; revisar sus scripts |
+| TresYMedia | 10585573125 | Ford F-4000 | Plataforma con redilas, muy de la CEDA. Quitar logos; ¿trae chasis manejable? |
+| Rabón/caja seca | 13837452559 | 90's Commercial Box Truck [WITH CHASSIS] | Ya trae chasis |
+| Chasis | 5181235975 | A-Chassis 6 C 1.5 | Chasis base si un camión no trae uno |
+| Arpilla | — | (sin resultados útiles) | Probablemente la hacemos nosotros |
+
 ## Registro de assets elegidos
 | Clave | ID de la Tienda | Autor | Fecha | Notas (qué se borró / ajustó) |
 |---|---|---|---|---|

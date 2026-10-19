@@ -1,6 +1,6 @@
 # Traspaso para GPT / Codex
 
-> Tadeo: copia el bloque de abajo y pégalo en GPT/Codex abierto en esta misma carpeta de tu PC.
+> Alaska: copia el bloque de abajo y pégalo en GPT/Codex abierto en esta misma carpeta de tu PC.
 
 ```
 Vas a programar "Central de Abastos", un juego de Roblox, en la carpeta CentralDeAbastos/

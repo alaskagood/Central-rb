@@ -29,10 +29,36 @@ El código nunca depende de un asset: `src/server/Assets.luau` usa el modelo de
 - **Un hito a la vez** (`docs/03_HITOS.md`). Terminar, probar y luego seguir.
 - **Placeholders del tamaño real** cuando falte un asset; nunca bloquear el avance.
 - **La IA no ve la pantalla.** Al terminar cada cambio, dejar instrucciones concretas de qué
-  probar en Studio (dónde pararse, qué botón, qué debe pasar). Tadeo manda captura o el texto de
+  probar en Studio (dónde pararse, qué botón, qué debe pasar). Alaska manda captura o el texto de
   la ventana *Salida (Output)*.
 - **Commits chicos, mensajes en español.** Un tema por commit.
 - **Las cuotas de generación de imágenes con IA se acaban rápido**: no depender de ellas.
+
+## Regla 2b: lecciones de los juegos de Roblox anteriores (Roba Bloques, País del Día)
+- **Que sea divertido para niños y adolescentes.** País del Día se rechazó por "aburrido, ni es un
+  juego". Cada oficio necesita acción, recompensa rápida y algo que presumir, no solo menús.
+- **Que se vea pro desde el principio.** "Se ve de power point" fue la queja principal: nada de
+  bloques grises en lo que se entrega; placeholders solo mientras se busca el asset.
+- **Tienda de creadores:** mucha decoración es de baja calidad o con propiedad intelectual
+  (Poppy Playtime, Rainbow Friends, marcas). No usarla. Nada de marcas reales (Kenworth, LEGO...).
+- **Meter assets ajenos:** `InsertService:LoadAsset` falla con modelos de otros autores;
+  usar `insert_asset` del MCP o `game:GetObjects("rbxassetid://ID")` **uno por llamada**
+  (varios juntos traban el plugin). Revisar scripts del modelo antes de dejarlo.
+- **`generate_model` (IA de Roblox)** sale sin textura y diminuto: escalar con `ScaleTo` y pintar.
+- **En modo edición `require` cachea módulos:** probar con `require(modulo:Clone())`.
+- **MCP de Studio:** usar el fork mantenido `@chrrxs/robloxstudio-mcp` con SU plugin; si queda un
+  plugin viejo (v3.1.5) instalado, bloquea al cliente en playtest: desactivarlo.
+- **Monetización:** `manage_monetization` del MCP dio "Unknown error"; usar la API de Open Cloud
+  directa. La llave (`ROBLOX_OPEN_CLOUD_API_KEY`) necesita desde el inicio los permisos
+  *asset read/write*, *game-pass read/write* y *developer-product read/write*.
+- **DataStore:** solo funciona con el lugar publicado + "Enable Studio Access to API Services".
+  Si la carga falla, **no guardar** (no borrar progreso).
+- **Aparecer en un lugar:** `CharacterAutoLoads=false` + `RespawnLocation` + `LoadCharacter`;
+  teletransportar en `CharacterAdded` sin esperar a `ch.Parent == workspace` lo pisa el spawn.
+- **No mover a mano en Studio y luego regenerar con script** sin revisar: se pierde lo que el
+  usuario acomodó. Lo que el usuario edita en Studio manda.
+- **Gustos visuales (letra, colores):** poner muestras en Studio y que el usuario escoja.
+- Textos del juego en **español e inglés** (según `LocaleId` del jugador).
 
 ## Regla 3: código
 - Luau con `--!strict`. Archivos en inglés o español, pero consistentes por carpeta; textos del
@@ -45,7 +71,7 @@ El código nunca depende de un asset: `src/server/Assets.luau` usa el modelo de
 - Datos guardados con DataStore, con reintentos; nada de guardar en cada cambio.
 - Formato: `stylua src tests` antes de hacer commit.
 
-## Regla 4: trabajo entre Claude y GPT (misma carpeta en la PC de Tadeo)
+## Regla 4: trabajo entre Claude y GPT (misma carpeta en la PC de Alaska)
 - Nunca las dos IAs a la vez sobre los mismos archivos: cada hito tiene sus carpetas
   (`docs/03_HITOS.md`, columna "Quién"). Una termina y hace commit; la otra empieza después.
 - Solo una IA a la vez controla Studio con el MCP de Roblox Studio.

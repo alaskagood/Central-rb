@@ -1,12 +1,12 @@
 # Hitos
 
 Uno a la vez. "Quién" dice qué IA lo programa para no pisarse (ver `REGLAS.md`, regla 4).
-Tadeo siempre prueba en Studio al final de cada hito.
+Alaska siempre prueba en Studio al final de cada hito.
 
 | # | Hito | Quién | Carpetas | Estado |
 |---|---|---|---|---|
 | H0 | Esqueleto: Rojo, elegir oficio, reloj, nave de 8 bodegas en blockout, pruebas de precio y merma | Claude | todo | ✅ hecho |
-| H1 | Assets de la Tienda: buscar y meter Bodega, Diablito, CajaMadera, Arpilla, PickUp, TresYMedia, Torton, Caseta | Claude con MCP de Studio (o Tadeo) | `ServerStorage/Assets`, `docs/02` | pendiente |
+| H1 | Assets de la Tienda: buscar y meter Bodega, Diablito, CajaMadera, Arpilla, PickUp, TresYMedia, Torton, Caseta | Claude con MCP de Studio (o Alaska) | `ServerStorage/Assets`, `docs/02` | pendiente |
 | H2 | Diablero: herramienta diablo, cargar/soltar cajas, encargos en esquinas, pago por caja, cajas que se caen con golpes | GPT | `src/server/Services/DiableroService.luau`, `src/client/Diablero/` | pendiente |
 | H3 | Inventario y lotes (frescura, dueño, envase) + guardado DataStore | Claude | `src/server/Services/InventoryService.luau`, `DataService.luau` | pendiente |
 | H4 | Jefe: reclamar bodega, pizarrón de precios, comprar lotes, vender por caja | Claude | `src/server/Services/BodegaService.luau`, `src/client/Jefe/` | pendiente |
@@ -14,7 +14,7 @@ Tadeo siempre prueba en Studio al final de cada hito.
 | H6 | Revendedor: puesto en tianguis, NPCs compradores, regateo por turnos | GPT | `src/server/Services/StallService.luau`, `src/client/Revendedor/` | pendiente |
 | H7 | Mercado del día: tabla de precios a las 3:00, demanda/oferta con camiones que llegaron, eventos | Claude | `src/server/Services/MarketService.luau` | pendiente |
 | H8 | NPCs que cubren oficios vacíos + ambiente (gritones, tamalero, viene-viene) | GPT | `src/server/Npc/` | pendiente |
-| H9 | Prueba con 4 amigos, balance de dinero, rendimiento en celular | Tadeo + ambas | — | pendiente |
+| H9 | Prueba con 4 amigos, balance de dinero, rendimiento en celular | Alaska + ambas | — | pendiente |
 
 ## Qué probar de H0 en Studio
 1. Abrir `CentralDeAbastos.rbxl` (o conectar Rojo) y darle **Play** (F5).
