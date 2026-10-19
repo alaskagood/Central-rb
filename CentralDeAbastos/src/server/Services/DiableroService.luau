@@ -7,8 +7,24 @@ local Assets = require(script.Parent.Parent.Assets)
 local Inventory = require(script.Parent.InventoryService)
 
 local Service = {}
-local SOURCE = "b:101"
+-- Surtido del mercado (NPC) que se carga frente a la 101. No es la bodega del jefe
+-- ("b:101"): así su mercancía no se mezcla con la de los encargos (ajuste de Claude, H4).
+local SOURCE = "npc:surtido"
 local CAPACITY = 5
+local RESTOCK_BELOW = 15
+local RESTOCK_UNITS = 30
+
+local function restock()
+	local total = 0
+	for _, lot in Inventory.list(SOURCE) do
+		if lot.freshness >= 10 then
+			total += lot.units
+		end
+	end
+	if total < RESTOCK_BELOW then
+		Inventory.add(SOURCE, "jitomate_saladette", RESTOCK_UNITS, 95, 0, 0)
+	end
+end
 type State = {
 	tool: Tool?,
 	visual: Model?,
@@ -279,6 +295,7 @@ function Service.start()
 	end
 	assert(bodega, "H2 necesita la bodega 101")
 	started = true
+	restock()
 	world = Instance.new("Folder")
 	world.Name = "DiableroH2"
 	world.Parent = workspace
@@ -286,9 +303,16 @@ function Service.start()
 	remote.Name = "DiableroAction"
 	remote.Parent = ReplicatedStorage
 	local localBodega = aisle.CFrame:PointToObjectSpace(bodega:GetPivot().Position)
+	-- Del lado contrario al pizarrón de la 101: si quedan juntos, la E tiene dos opciones.
+	local pickupZ = localBodega.Z
+	local board = bodega:FindFirstChild("Tabla", true)
+	if board and board:IsA("BasePart") then
+		local localBoard = aisle.CFrame:PointToObjectSpace(board.Position)
+		pickupZ = localBodega.Z - (localBoard.Z - localBodega.Z)
+	end
 	pickup = marker(
 		"Carga · Bodega 101",
-		aisle.CFrame:PointToWorldSpace(Vector3.new(-aisle.Size.X / 2 + 2, 0.2, localBodega.Z)),
+		aisle.CFrame:PointToWorldSpace(Vector3.new(-aisle.Size.X / 2 + 2, 0.2, pickupZ)),
 		Color3.fromRGB(240, 180, 40)
 	)
 	for index, side in { -1, 1 } do
@@ -321,7 +345,8 @@ function Service.start()
 				for _, lot in table.clone(Inventory.list(holder(player))) do
 					local units = math.min(lot.units, state.remaining)
 					if
-						units > 0 and Inventory.move(holder(player), `npc:diablero:{index}`, lot.id, units)
+						-- El cliente NPC se lleva las cajas: salen del juego.
+						units > 0 and Inventory.take(holder(player), lot.id, units)
 					then
 						delivered += units
 						state.remaining -= units
@@ -338,6 +363,7 @@ function Service.start()
 					state.destination = nil
 					state.loaded = 0
 				end
+				restock()
 			else
 				say(player, "Tu cliente está en la otra esquina.")
 			end
@@ -369,7 +395,8 @@ function Service.start()
 				return
 			end
 		end
-		say(player, "La 101 no tiene cajas disponibles para este encargo.")
+		restock()
+	say(player, "Se acabaron las cajas; ya viene más surtido, intenta otra vez.")
 	end)
 	remote.OnServerEvent:Connect(function(player: Player, action: unknown)
 		local state = states[player]

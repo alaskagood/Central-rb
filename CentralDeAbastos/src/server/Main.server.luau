@@ -18,7 +18,6 @@ ClockService.start()
 InventoryService.start(ClockService)
 DataService.start()
 require(Services.MarketService).start(ClockService)
-require(Services.BodegaService).start()
 
 -- Solo en Studio: el MCP corre en otra VM y su require da otra copia de los servicios.
 -- ServerStorage.Prueba:Invoke("add", holder, ...) llega al InventoryService real.
@@ -39,5 +38,8 @@ if not workspace:FindFirstChild("CEDA") then
 	world.Parent = workspace
 	NaveBuilder.build(world, CFrame.new(0, 0, 0))
 end
+-- Estos dos buscan las bodegas: van después del mapa.
+require(Services.BodegaService).start()
+require(Services.DiableroService).start()
 
 print("[CEDA] Servidor listo")
