@@ -35,9 +35,9 @@ El código vive en GitHub (`src/`) y Rojo lo pasa a Studio en vivo:
 | Que la IA maneje Roblox Studio directo (insertar de la Tienda, correr código, leer la Salida) | **Roblox Studio MCP** (servidor MCP oficial de Roblox) | Solo funciona con Claude **en tu PC** (app de escritorio de Claude o Claude Code local), no en la versión web/nube |
 | Pasar código de archivos a Studio | **Rojo** (plugin + programa) | Tu PC |
 
-La sesión de Claude en la nube **no puede ver ni controlar tu Studio** (y la red de la nube tiene
-bloqueado roblox.com). Por eso el flujo es: la IA escribe código en GitHub → tú haces *pull* →
-Rojo lo pasa a Studio → pruebas y mandas captura o el texto de la *Salida*.
+Se trabaja **todo en la PC**: Claude (app de escritorio o Claude Code) y GPT/Codex abiertos en
+esta misma carpeta, Studio abierto con Rojo conectado, y GitHub como respaldo (commit al
+terminar cada hito). Reglas para no pisarse: `REGLAS.md`, regla 4.
 
 ## 4. Pruebas sin Studio
 Desde `CentralDeAbastos/`: `lune run tests/run` (precios y merma). Formato: `stylua src tests`.

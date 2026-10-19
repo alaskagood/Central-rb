@@ -45,11 +45,12 @@ El código nunca depende de un asset: `src/server/Assets.luau` usa el modelo de
 - Datos guardados con DataStore, con reintentos; nada de guardar en cada cambio.
 - Formato: `stylua src tests` antes de hacer commit.
 
-## Regla 4: trabajo entre Claude y GPT
-- Cada IA trabaja en **su propia rama** y en **las carpetas que le toca** según `docs/03_HITOS.md`
-  (columna "Quién"). Nadie edita lo de la otra sin avisar en el hito.
-- Antes de empezar: `git pull` de la rama principal. Al terminar: marcar el hito y escribir en
-  `docs/PARA_GPT.md` → "Estado" qué se hizo.
+## Regla 4: trabajo entre Claude y GPT (misma carpeta en la PC de Tadeo)
+- Nunca las dos IAs a la vez sobre los mismos archivos: cada hito tiene sus carpetas
+  (`docs/03_HITOS.md`, columna "Quién"). Una termina y hace commit; la otra empieza después.
+- Solo una IA a la vez controla Studio con el MCP de Roblox Studio.
+- Lo que una necesite de la otra se escribe en `docs/PARA_GPT.md` → "Pendientes".
+- Al terminar: marcar el hito y escribir en `docs/PARA_GPT.md` → "Estado" qué se hizo.
 
 ## Estructura
 ```
