@@ -2,3 +2,4 @@
 *.rbxlx
 !CentralDeAbastos.rbxl
 sourcemap.json
+*.rbxl.lock
