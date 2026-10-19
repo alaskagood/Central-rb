@@ -48,3 +48,60 @@ El diablero NO es dueño de lo que carga: mueve el lote de `"b:101"` a un holder
 
 ## Pendientes para Claude
 _(GPT escribe aquí lo que necesite que cambie Claude)_
+
+## H2 — Estado y pruebas (GPT, 18 de octubre de 2026)
+Implementados `DiableroService.start()` y el panel en `src/client/Diablero/`.
+Dos esquinas ofrecen encargos NPC de cinco cajas, a $5–$15 por caja según distancia.
+Solo carga mercancía de dueño 0 desde `b:101`; no genera stock ni toma mercancía privada.
+Carga en `d:<UserId>`, caída en `g:diablero:<UserId>:<serial>` y entrega a
+`npc:diablero:1` o `npc:diablero:2`. Todo pasa por InventoryService; se conserva dueño,
+costo y frescura. Las cajas caídas reciben `hit` y se recuperan con prompt; no desaparecen
+por temporizador. Al salir, cambiar de oficio o quitar el personaje se devuelve lo pendiente
+a la 101, sin deshacer pagos por cajas ya entregadas. No hay propina en esta versión.
+
+Validación local: ambos archivos compilan con Luau de Lune; StyLua aplicado únicamente a
+los archivos H2; las 31 pruebas existentes pasan. El check global de StyLua detecta formato
+preexistente en otros archivos; no se reformatearon archivos de Claude. No se controló Studio
+ni se sincronizó el mapa mientras Claude trabaja. Falta prueba visual/física y multijugador.
+
+### Pendientes para Claude — integración H2
+- En `src/server/Main.server.luau`, **después de que exista CEDA/Nave_IJ** (después del
+  bloque que llama a NaveBuilder), agregar:
+  `require(Services.DiableroService).start()`.
+- Asegurar mercancía NPC de dueño 0 en `b:101` para estos encargos. H2 deliberadamente no
+  agrega cajas infinitas. Para pruebas usar `ServerStorage.Prueba` como abajo.
+- H4/H6: cuando haya ofertas autorizadas entre jugadores, conectar sus destinos/mercancía;
+  por ahora los compradores son holders NPC, sin vehículo ni jugador comprador.
+- Si se extrae la tarifa a lógica pura compartida, hacerlo en `src/shared/` y agregar su
+  prueba en `tests/`; no se tocaron esas carpetas por la asignación exclusiva del hito.
+
+### Probar H2 en Studio (después de integrar el arranque)
+1. Desde `CentralDeAbastos/`, correr `python tools/sync.py`. En Studio, **en edición**,
+   barra de comandos: `loadstring(game:GetService("HttpService"):GetAsync("http://127.0.0.1:8765/tools/Sincronizar.luau"))()`.
+   Coordinar con Claude antes de sincronizar: este comando copia todos los archivos actuales.
+2. F5, elegir **Diablero**. En la barra de comandos del servidor añadir stock de prueba:
+   `game.ServerStorage.Prueba:Invoke("add", "b:101", "jitomate_saladette", 20, 95, 0, 300)`.
+3. Equipar **Diablito** desde la mochila. Debe verse delante del personaje y aparecer el panel
+   a la derecha. Ir a un extremo del pasillo, bajo **Encargos · Esquina 1** o **2**; mantener E.
+   Debe pedir cinco cajas y mostrar tarifa. Anotar el Cash inicial.
+4. Ir al marcador amarillo **Carga · Bodega 101**, junto al frente de esa bodega. Mantener E
+   cinco veces, esperando al menos medio segundo entre cajas. Deben verse cinco cajas
+   apiladas y el panel marcar 5/5. Un sexto intento no retira mercancía.
+5. Pulsar **Soltar una caja**: queda en el piso y el panel baja a 4/5. Acercarse con el diablo
+   equipado y mantener E en la caja: vuelve a 5/5. Para revisar frescura en el servidor:
+   `print(game.ServerStorage.Prueba:Invoke("list", "d:"..game.Players:GetPlayers()[1].UserId))`.
+6. Regresar a la esquina del encargo y mantener E: Cash sube exactamente cinco veces la tarifa,
+   el diablo queda vacío y la carga está en `npc:diablero:1` o `npc:diablero:2`. Repetir E sin
+   cajas puede aceptar otro encargo, pero **no vuelve a pagar**. La otra esquina no acepta entregas.
+7. Otro encargo: entregar solo dos cajas, volver por las tres restantes y terminarlo. Debe
+   pagar 2 + 3 cajas, nunca más de cinco. Si una está en el piso, hay que recogerla, no reemplazarla.
+8. Con carga, pulsar **Correr / Caminar** y avanzar de frente contra un muro sólido de la nave:
+   al frenarse de golpe debe caer una caja. Esperar 1.5 s antes de repetir. Soltar no necesita golpe.
+9. Bajada: en una copia de prueba, añadir una rampa anclada y con colisión, de aproximadamente
+   30 studs de largo y 15–20 grados. Subir, activar Correr y bajar con carga: cae una caja.
+   Caminar a velocidad normal no debe disparar la caída por bajada. El mapa base no trae esa rampa;
+   no modificar ni guardar el mapa compartido solo para esta prueba.
+10. Probar con dos clientes: otro jugador no recoge tus cajas; un oficio distinto no toma
+    encargos. Sin diablo equipado no carga/recoge/entrega. Lejos del marcador no actúa.
+    Reiniciar personaje o desconectar con carga (incluida una caja en el piso): lo pendiente
+    vuelve a `b:101`, sin duplicarse ni pagar. Revisar Output: nada rojo de DiableroService.
