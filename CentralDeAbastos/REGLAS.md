@@ -48,6 +48,12 @@ El código nunca depende de un asset: `src/server/Assets.luau` usa el modelo de
 - **En modo edición `require` cachea módulos:** probar con `require(modulo:Clone())`.
 - **MCP de Studio:** usar el fork mantenido `@chrrxs/robloxstudio-mcp` con SU plugin; si queda un
   plugin viejo (v3.1.5) instalado, bloquea al cliente en playtest: desactivarlo.
+  Si la ventana del plugin (Plugins → MCP Integration → MCP Server) dice
+  `plugin_version_mismatch`, hay un servidor MCP viejo de otra sesión ocupando el puerto 58741:
+  cerrar ese proceso `node` y el de la sesión actual toma el puerto.
+- **"Authentication required to access Asset"** en `GetObjects`, `LoadAsset` o la Caja de
+  herramientas = la sesión de Studio caducó: guardar, cerrar Studio y volver a abrirlo (o cerrar e
+  iniciar sesión). No es culpa del modelo.
 - **Monetización:** `manage_monetization` del MCP dio "Unknown error"; usar la API de Open Cloud
   directa. La llave (`ROBLOX_OPEN_CLOUD_API_KEY`) necesita desde el inicio los permisos
   *asset read/write*, *game-pass read/write* y *developer-product read/write*.
