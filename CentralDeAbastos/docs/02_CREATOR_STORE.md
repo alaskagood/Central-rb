@@ -59,6 +59,7 @@ y buscar `getfenv`, `loadstring`, `require(<número>)`, `scrambl`, nombres Runti
 | Costal | 9371970094 | Sack of Rice | 1 MeshPart, sin scripts. 0.8 m de alto |
 | Arpilla | 9371970094 | Sack of Rice | Mismo costal, sin textura, tela naranja, 0.7 m |
 | Caseta | 17117352174 | Advanced Toll Booth Gate | 12 partes; se borraron sus 2 scripts viejos (luces/botón). La pluma la maneja nuestro servidor |
+| PuestoTianguis | 15147571772 | market stall | 16 partes, sin scripts. Lona pintada rosa mexicano (estilo tianguis), anclado |
 | TresYMedia | 10585573125 | Ford F-4000 | A-Chassis 6, 85 partes, 36 scripts revisados (limpios). Se borró el reproductor de audio y el radar. Sin escalar (rompe el chasis). Falta quitar logos Ford |
 
 **Audios de los camiones:** son privados de sus autores ("no tiene permiso de acceso"); el motor suena
@@ -69,6 +70,10 @@ mudo. Reemplazar por audios de la Tienda con permiso cuando toque H5.
 |---|---|---|---|
 | Torton/Rabón | 13837452559 | 90's Commercial Box Truck [WITH CHASSIS] | En `ServerStorage/Revisar`. A-Chassis, 64 scripts sin banderas; se ve desarmado en edición (se arma al jugar). Probar manejándolo en H5 |
 | PickUp, Torton | — | — | Buscar en H5 |
+
+**Compradores NPC del tianguis:** se hacen con `Players:CreateHumanoidModelFromDescription` (nativo de
+Roblox, sin scripts de terceros) con colores de piel/ropa al azar. Los paquetes de NPC de la Tienda no hacían falta.
+**Guardado:** ProfileStore oficial de loleris (109379033046155), copia en `src/server/Lib/ProfileStore.luau`.
 
 ## Creados por nosotros (no hubo nada bueno)
 | Clave | Por qué no sirvió lo de la Tienda | Cómo se hizo |

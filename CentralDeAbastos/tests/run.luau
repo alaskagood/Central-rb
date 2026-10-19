@@ -109,6 +109,22 @@ check("validate rechaza producto inventado", Lots.validate({ id = "x", product =
 check("validate rechaza unidades raras", Lots.validate({ id = "x", product = "jitomate_saladette", units = 0, freshness = 50, owner = 1, cost = 10 }, catalog) == nil)
 check("validate rechaza NaN", Lots.validate({ id = "x", product = "jitomate_saladette", units = 1, freshness = 0 / 0, owner = 1, cost = 10 }, catalog) == nil)
 
+-- Regateo
+local Haggle = require("../src/shared/Haggle")
+local h = Haggle.new(400, 1, 0.5, 0)
+check("tope = 400 · 1.2 = 480", h.maxPay == 480)
+check("abre 30% abajo del tope", h.offer == 335)
+local r1, p1 = Haggle.ask(h, 450)
+check("pedir abajo del tope se vende a lo pedido", r1 == "accept" and p1 == 450)
+local h2 = Haggle.new(400, 1, 0.5, 0, 2)
+local r2, p2 = Haggle.ask(h2, 600)
+check("pedir de más: contraoferta más alta", r2 == "counter" and p2 > 335 and p2 <= 480)
+local r3 = Haggle.ask(h2, 600)
+check("sin paciencia se va", r3 == "leave")
+check("rezaga paga menos", Haggle.new(400, 0.4, 0.5, 0).maxPay < Haggle.new(400, 1, 0.5, 0).maxPay)
+local r4, p4 = Haggle.ask(Haggle.new(400, 1, 0.5, 0), 0 / 0)
+check("pedir NaN no vende", r4 == "counter" and p4 == 335)
+
 print(`\n{total - failures}/{total} pruebas OK`)
 if failures > 0 then
 	error(`{failures} pruebas fallaron`)

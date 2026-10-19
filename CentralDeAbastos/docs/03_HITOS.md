@@ -11,7 +11,7 @@ Alaska siempre prueba en Studio al final de cada hito.
 | H3 | Inventario y lotes (frescura, dueño, envase) + guardado DataStore | Claude | `src/server/Services/InventoryService.luau`, `DataService.luau` | ✅ hecho |
 | H4 | Jefe: reclamar bodega, pizarrón de precios, comprar lotes, vender por caja | Claude | `src/server/Services/BodegaService.luau`, `src/client/Jefe/` | ✅ hecho |
 | H5 | Camionero: chasis de la Tienda, caseta con cuota, andén con zona de reversa, flete | GPT | `src/server/Services/TruckService.luau`, `src/client/Camionero/` | pendiente |
-| H6 | Revendedor: puesto en tianguis, NPCs compradores, regateo por turnos | GPT | `src/server/Services/StallService.luau`, `src/client/Revendedor/` | pendiente |
+| H6 | Revendedor: puesto en tianguis, NPCs compradores, regateo por turnos | Claude | `src/server/Services/StallService.luau`, `src/client/Revendedor/` | ✅ hecho |
 | H7 | Mercado del día: tabla de precios a las 3:00, demanda/oferta con camiones que llegaron, eventos | Claude | `src/server/Services/MarketService.luau` | pendiente |
 | H8 | NPCs que cubren oficios vacíos + ambiente (gritones, tamalero, viene-viene) | GPT | `src/server/Npc/` | pendiente |
 | H9 | Prueba con 4 amigos, balance de dinero, rendimiento en celular | Alaska + ambas | — | pendiente |
@@ -55,3 +55,13 @@ Alaska siempre prueba en Studio al final de cada hito.
    **E (Ver precios)** y compra 1 o 5 cajas. A él le baja el dinero, al jefe le sube, y las cajas
    aparecen en "TU CARGA" del comprador.
 5. Si el jefe se sale, la bodega dice "SE RENTA" y su mercancía queda guardada en su cuenta.
+
+## Qué probar de H6 en Studio
+1. F5 y elige **Revendedor**: aviso "Tu puesto es el 1 del tianguis". El tianguis está al norte de
+   la nave (6 puestos con lona rosa); tu puesto dice "PUESTO DE <TU NOMBRE>".
+2. Botón verde **MAYOREO**: compra +1/+5 de algo (Subasta +20 %). Aparece en "TU CARGA".
+3. Párate detrás de tu mostrador. Cada 8–14 s llega un comprador caminando con un globo:
+   "¿A cómo la caja? Le doy $X". Abajo sale la tarjeta: **Va**, **Pide +10 %**, **Pide +25 %**,
+   **No hay trato**. Si pides de más, contraoferta y pierde un corazón; sin corazones se va.
+4. Al vender: te sube el dinero y bajan las cajas de tu carga. Si no contestas en 25 s, se va.
+5. También puedes comprarle a un jefe en su bodega (H4) y revender aquí: sale más barato que el mayoreo.

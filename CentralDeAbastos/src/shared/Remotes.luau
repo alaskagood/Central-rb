@@ -16,6 +16,9 @@ local NAMES = {
 	"BodegaStock", -- servidor → cliente: (number, {Offer}) lo que hay en la bodega del jefe
 	"BodegaOpen", -- servidor → cliente: (number, {Offer}, ownerName, isOwner) ver una bodega
 	"BodegaBuy", -- cliente → servidor: (number, lotId, units) comprar cajas en una bodega
+	"WholesaleBuy", -- cliente → servidor: (productId, units) el revendedor se surte del mayoreo NPC
+	"Haggle", -- servidor → cliente: (HaggleView?) regateo con un comprador; nil = se acabó
+	"HaggleReply", -- cliente → servidor: ("accept" | "up10" | "up25" | "no")
 }
 
 local Remotes = {}

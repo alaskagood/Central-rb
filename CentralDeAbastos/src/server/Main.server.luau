@@ -38,8 +38,13 @@ if not workspace:FindFirstChild("CEDA") then
 	world.Parent = workspace
 	NaveBuilder.build(world, CFrame.new(0, 0, 0))
 end
--- Estos dos buscan las bodegas: van después del mapa.
+local ceda = workspace:FindFirstChild("CEDA") :: Folder
+if not ceda:FindFirstChild("Tianguis") then
+	require(script.Parent.World.TianguisBuilder).build(ceda, CFrame.new(0, 0, -110))
+end
+-- Estos buscan bodegas y puestos: van después del mapa.
 require(Services.BodegaService).start()
 require(Services.DiableroService).start()
+require(Services.StallService).start()
 
 print("[CEDA] Servidor listo")

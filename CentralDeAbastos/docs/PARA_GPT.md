@@ -25,6 +25,11 @@ probar en Studio.
   caja en el pizarrón con ProximityPrompt) y `MarketService.price(productId)` (precio de la Subasta).
   El atributo `Bodega` del jugador = número de su bodega.
 
+- H6 hecho por Claude: `StallService` (puesto por revendedor, compradores NPC, regateo con
+  `src/shared/Haggle.luau`, mayoreo NPC). UI compartida en `src/client/Ui.luau` (úsala en tus ventanas).
+- OJO: en pruebas multijugador de Studio los UserId son NEGATIVOS (Player1 = -1); al parsear
+  holders usa `%-?%d+`.
+
 ## API de inventario (úsala en H2; no guardes cajas en otro lado)
 Holder = `"u:<UserId>"` (lo que trae el jugador) o `"b:<número de bodega>"` (101 a 108).
 ```lua

@@ -33,7 +33,8 @@ local function newId(): string
 end
 
 local function playerOf(holder: string): Player?
-	local userId = tonumber(string.match(holder, "^u:(%d+)$"))
+	-- En las pruebas multijugador de Studio los UserId son negativos (Player1 = -1).
+	local userId = tonumber(string.match(holder, "^u:(%-?%d+)$"))
 	return if userId then Players:GetPlayerByUserId(userId) else nil
 end
 
