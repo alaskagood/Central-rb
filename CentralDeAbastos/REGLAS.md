@@ -44,6 +44,10 @@ El código nunca depende de un asset: `src/server/Assets.luau` usa el modelo de
 - **Meter assets ajenos:** `InsertService:LoadAsset` falla con modelos de otros autores;
   usar `insert_asset` del MCP o `game:GetObjects("rbxassetid://ID")` **uno por llamada**
   (varios juntos traban el plugin). Revisar scripts del modelo antes de dejarlo.
+- **Malware en la Tienda (2026-10-18):** descripciones en plantilla "N parts… No scripts. palabra,
+  palabra…" = copia con backdoor (scripts Runtime/ScreenBuilder escondidos en mallas o Welds). Ver la
+  lista en `docs/02_CREATOR_STORE.md`. Revisar SIEMPRE todos los scripts, aunque diga "No scripts".
+- **Modelos de otros autores** solo bajan si el lugar está guardado en Roblox (placeId ≠ 0).
 - **`generate_model` (IA de Roblox)** sale sin textura y diminuto: escalar con `ScaleTo` y pintar.
 - **En modo edición `require` cachea módulos:** probar con `require(modulo:Clone())`.
 - **MCP de Studio:** usar el fork mantenido `@chrrxs/robloxstudio-mcp` con SU plugin; si queda un

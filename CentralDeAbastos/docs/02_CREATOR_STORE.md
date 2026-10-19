@@ -39,26 +39,38 @@ o create.roblox.com/store). Solo si no hay uno bueno, se crea.
 | Animaciones (empujar, cargar caja) | Animaciones de la Tienda / Animation Pack de Roblox | Editor de animación de Studio |
 | Sonido de ambiente (mercado, motores, claxon) | Sección *Audio* de la Tienda | Grabación propia en la CEDA |
 
-## Candidatos encontrados (2026-10-18, falta revisar scripts y escala en Studio)
-Buscados con `search_assets` del MCP y revisados por miniatura. **No son aceptados todavía.**
-| Clave | ID | Nombre en la Tienda | Nota |
-|---|---|---|---|
-| Diablito | 13716850153 | Carretilla | Diablito amarillo realista, llantas neumáticas. Primera opción |
-| Diablito | 18175462836 | Sackbarrow | Alterna |
-| CajaMadera | 126648667803392 | Apple Crate Wooden Box | Caja de madera con fruta roja; 34 partes, sin scripts (según autor) |
-| Bodega (cortina) | 139065864553256 | Shutter Door Roll Up Garage Doors | Cortina metálica, 5 partes, sin scripts. Bodega = esta cortina + muros propios |
-| Caseta (pluma) | 17117352174 | Advanced Toll Booth Gate | Pluma roja/blanca; revisar sus scripts |
-| TresYMedia | 10585573125 | Ford F-4000 | Plataforma con redilas, muy de la CEDA. Quitar logos; ¿trae chasis manejable? |
-| Rabón/caja seca | 13837452559 | 90's Commercial Box Truck [WITH CHASSIS] | Ya trae chasis |
-| Chasis | 5181235975 | A-Chassis 6 C 1.5 | Chasis base si un camión no trae uno |
-| Arpilla | — | (sin resultados útiles) | Probablemente la hacemos nosotros |
+## ⚠️ Malware conocido en la Tienda (NO usar)
+Modelos con descripción en plantilla **"N parts, … No scripts. palabra, palabra, …"** traen escondido un
+`Script` llamado **Runtime** (dentro de una malla o un Weld) con un `LocalScript` **ScreenBuilder**: solo
+corren en Studio, guardan una carga "scrambled" y abren una ventana con "pasos y código" para que el
+creador pegue un backdoor. Son copias de modelos legítimos con el malware pegado.
+| ID | Nombre | Original limpio |
+|---|---|---|
+| 126648667803392 | Apple Crate Wooden Box Basket Crates Apples Mesh | 5893008295 |
+| 139065864553256 | Shutter Door Roll Up Garage Doors | — |
+Antes de aceptar cualquier modelo: listar TODOS sus `LuaSourceContainer` (también dentro de MeshPart/Weld)
+y buscar `getfenv`, `loadstring`, `require(<número>)`, `scrambl`, nombres Runtime/ScreenBuilder.
 
-## Registro de assets elegidos
-| Clave | ID de la Tienda | Autor | Fecha | Notas (qué se borró / ajustó) |
-|---|---|---|---|---|
-| _(vacío: llenar al elegir cada asset)_ | | | | |
+## Registro de assets elegidos (en `ServerStorage/Assets`, 2026-10-18)
+| Clave | ID de la Tienda | Nombre | Notas (qué se borró / ajustó) |
+|---|---|---|---|
+| Diablito | 13716850153 | Carretilla | 1 MeshPart, sin scripts. Escalado a 1.3 m de alto |
+| CajaMadera | 5893008295 | apple crate (caja con jitomates) | 34 partes, sin scripts. Escalada a 0.5 m de largo |
+| Costal | 9371970094 | Sack of Rice | 1 MeshPart, sin scripts. 0.8 m de alto |
+| Arpilla | 9371970094 | Sack of Rice | Mismo costal, sin textura, tela naranja, 0.7 m |
+| Caseta | 17117352174 | Advanced Toll Booth Gate | 12 partes; se borraron sus 2 scripts viejos (luces/botón). La pluma la maneja nuestro servidor |
+| TresYMedia | 10585573125 | Ford F-4000 | A-Chassis 6, 85 partes, 36 scripts revisados (limpios). Se borró el reproductor de audio y el radar. Sin escalar (rompe el chasis). Falta quitar logos Ford |
+
+**Audios de los camiones:** son privados de sus autores ("no tiene permiso de acceso"); el motor suena
+mudo. Reemplazar por audios de la Tienda con permiso cuando toque H5.
+
+## Pendientes de revisar
+| Clave | ID | Nombre | Nota |
+|---|---|---|---|
+| Torton/Rabón | 13837452559 | 90's Commercial Box Truck [WITH CHASSIS] | En `ServerStorage/Revisar`. A-Chassis, 64 scripts sin banderas; se ve desarmado en edición (se arma al jugar). Probar manejándolo en H5 |
+| PickUp, Torton | — | — | Buscar en H5 |
 
 ## Creados por nosotros (no hubo nada bueno)
 | Clave | Por qué no sirvió lo de la Tienda | Cómo se hizo |
 |---|---|---|
-| | | |
+| Bodega | Las cortinas/bodegas de la Tienda eran malware o de baja calidad | Módulo 5×6×20 m armado con partes (24): muros crema con zoclo verde, cortina metálica a 1/4, rodillo, letrero amarillo con número (NaveBuilder pone "BODEGA 101…"), tapanco de madera al fondo con barandal, puerta trasera al andén y foco cálido. Frente = −Z del modelo |

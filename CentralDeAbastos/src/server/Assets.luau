@@ -49,8 +49,11 @@ end
 -- Coloca el modelo con su base apoyada en `cframe` (el piso).
 function Assets.place(key: string, cframe: CFrame, parent: Instance): Model
 	local model = Assets.get(key)
-	local _, size = model:GetBoundingBox()
-	model:PivotTo(cframe * CFrame.new(0, size.Y / 2, 0))
+	-- El pivote de un modelo de la Tienda no siempre está al centro: se mide
+	-- dónde queda su fondo respecto al pivote y se sube justo eso.
+	local box, size = model:GetBoundingBox()
+	local bottom = model:GetPivot():PointToObjectSpace(box.Position).Y - size.Y / 2
+	model:PivotTo(cframe * CFrame.new(0, -bottom, 0))
 	model.Parent = parent
 	return model
 end

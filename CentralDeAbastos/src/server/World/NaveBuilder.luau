@@ -55,9 +55,14 @@ function NaveBuilder.build(parent: Instance, origin: CFrame): Folder
 			index += 1
 			local z = -rowLength / 2 + m(BODEGA_FRONT) * (i + 0.5)
 			local cf = origin * CFrame.new(rowX, 0, z)
-			local bodega = Assets.place("Bodega", cf * CFrame.Angles(0, math.rad(90), 0), nave)
+			-- El modelo abre hacia su -Z: se gira para que el frente vea al pasillo.
+			local bodega = Assets.place("Bodega", cf * CFrame.Angles(0, math.rad(90 * side), 0), nave)
 			bodega.Name = `Bodega_{index}`
 			bodega:SetAttribute("Number", 100 + index)
+			local texto = bodega:FindFirstChild("Texto", true)
+			if texto and texto:IsA("TextLabel") then
+				texto.Text = `BODEGA {100 + index}`
+			end
 			bodega:SetAttribute("OwnerUserId", 0)
 		end
 

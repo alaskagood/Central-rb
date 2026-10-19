@@ -6,7 +6,7 @@ Alaska siempre prueba en Studio al final de cada hito.
 | # | Hito | Quién | Carpetas | Estado |
 |---|---|---|---|---|
 | H0 | Esqueleto: Rojo, elegir oficio, reloj, nave de 8 bodegas en blockout, pruebas de precio y merma | Claude | todo | ✅ hecho |
-| H1 | Assets de la Tienda: buscar y meter Bodega, Diablito, CajaMadera, Arpilla, PickUp, TresYMedia, Torton, Caseta | Claude con MCP de Studio (o Alaska) | `ServerStorage/Assets`, `docs/02` | pendiente |
+| H1 | Assets de la Tienda: buscar y meter Bodega, Diablito, CajaMadera, Arpilla, PickUp, TresYMedia, Torton, Caseta | Claude con MCP de Studio (o Alaska) | `ServerStorage/Assets`, `docs/02` | ✅ hecho (falta PickUp y Torton → en H5) |
 | H2 | Diablero: herramienta diablo, cargar/soltar cajas, encargos en esquinas, pago por caja, cajas que se caen con golpes | GPT | `src/server/Services/DiableroService.luau`, `src/client/Diablero/` | pendiente |
 | H3 | Inventario y lotes (frescura, dueño, envase) + guardado DataStore | Claude | `src/server/Services/InventoryService.luau`, `DataService.luau` | pendiente |
 | H4 | Jefe: reclamar bodega, pizarrón de precios, comprar lotes, vender por caja | Claude | `src/server/Services/BodegaService.luau`, `src/client/Jefe/` | pendiente |
@@ -25,3 +25,12 @@ Alaska siempre prueba en Studio al final de cada hito.
 5. Al frente hay una nave: pasillo al centro, 4 bodegas grises por lado y el andén oscuro atrás.
 6. En **Salida (Output)** deben salir avisos amarillos "`[Assets] "Bodega" sin modelo`": es
    normal, dicen qué buscar en la Tienda. **No** debe salir nada en rojo.
+
+## Qué probar de H1 en Studio
+1. Abrir el juego y darle **Play** (F5), elegir cualquier oficio.
+2. En la nave: 8 bodegas de verdad (muros crema con franja verde, cortina metálica, letrero amarillo
+   "BODEGA 101" a "BODEGA 108") con el frente hacia el pasillo, todas pegadas al piso.
+3. Al fondo de la nave, la pluma de cobro (caseta).
+4. En `ServerStorage/Assets` están Diablito, CajaMadera, Arpilla, Costal, Caseta, TresYMedia y Bodega.
+5. En la Salida salen errores rojos de **sonidos** de los camiones (audio privado de sus autores): es
+   esperado; nada más debe salir en rojo.
