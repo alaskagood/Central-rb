@@ -51,9 +51,10 @@ El código nunca depende de un asset: `src/server/Assets.luau` usa el modelo de
   Si la ventana del plugin (Plugins → MCP Integration → MCP Server) dice
   `plugin_version_mismatch`, hay un servidor MCP viejo de otra sesión ocupando el puerto 58741:
   cerrar ese proceso `node` y el de la sesión actual toma el puerto.
-- **"Authentication required to access Asset"** en `GetObjects`, `LoadAsset` o la Caja de
-  herramientas = la sesión de Studio caducó: guardar, cerrar Studio y volver a abrirlo (o cerrar e
-  iniciar sesión). No es culpa del modelo.
+- **"Authentication required to access Asset"** con modelos de otros autores (los de Roblox sí
+  bajan) o "Error al guardar" al publicar: revisar `%LOCALAPPDATA%\Roblox\logs`. Si sale
+  `401 Unauthorized`, el inicio de sesión de Studio caducó: **cerrar sesión y volver a entrar**
+  (reiniciar Studio no basta). No es culpa del modelo.
 - **Monetización:** `manage_monetization` del MCP dio "Unknown error"; usar la API de Open Cloud
   directa. La llave (`ROBLOX_OPEN_CLOUD_API_KEY`) necesita desde el inicio los permisos
   *asset read/write*, *game-pass read/write* y *developer-product read/write*.
