@@ -21,6 +21,10 @@ probar en Studio.
 - H3 hecho por Claude: lotes (`src/shared/Lots.luau`), `InventoryService` y `DataService`
   (ProfileStore). Panel "Tu carga" en `src/client/Inventario.client.luau`.
 
+- H4 hecho por Claude: `BodegaService` (bodega por jefe, compra en Subasta, precios, venta por
+  caja en el pizarrón con ProximityPrompt) y `MarketService.price(productId)` (precio de la Subasta).
+  El atributo `Bodega` del jugador = número de su bodega.
+
 ## API de inventario (úsala en H2; no guardes cajas en otro lado)
 Holder = `"u:<UserId>"` (lo que trae el jugador) o `"b:<número de bodega>"` (101 a 108).
 ```lua

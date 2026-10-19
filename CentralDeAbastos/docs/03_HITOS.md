@@ -9,7 +9,7 @@ Alaska siempre prueba en Studio al final de cada hito.
 | H1 | Assets de la Tienda: buscar y meter Bodega, Diablito, CajaMadera, Arpilla, PickUp, TresYMedia, Torton, Caseta | Claude con MCP de Studio (o Alaska) | `ServerStorage/Assets`, `docs/02` | ✅ hecho (falta PickUp y Torton → en H5) |
 | H2 | Diablero: herramienta diablo, cargar/soltar cajas, encargos en esquinas, pago por caja, cajas que se caen con golpes | GPT | `src/server/Services/DiableroService.luau`, `src/client/Diablero/` | Implementado; pendiente arranque por Claude y prueba en Studio |
 | H3 | Inventario y lotes (frescura, dueño, envase) + guardado DataStore | Claude | `src/server/Services/InventoryService.luau`, `DataService.luau` | ✅ hecho |
-| H4 | Jefe: reclamar bodega, pizarrón de precios, comprar lotes, vender por caja | Claude | `src/server/Services/BodegaService.luau`, `src/client/Jefe/` | pendiente |
+| H4 | Jefe: reclamar bodega, pizarrón de precios, comprar lotes, vender por caja | Claude | `src/server/Services/BodegaService.luau`, `src/client/Jefe/` | ✅ hecho |
 | H5 | Camionero: chasis de la Tienda, caseta con cuota, andén con zona de reversa, flete | GPT | `src/server/Services/TruckService.luau`, `src/client/Camionero/` | pendiente |
 | H6 | Revendedor: puesto en tianguis, NPCs compradores, regateo por turnos | GPT | `src/server/Services/StallService.luau`, `src/client/Revendedor/` | pendiente |
 | H7 | Mercado del día: tabla de precios a las 3:00, demanda/oferta con camiones que llegaron, eventos | Claude | `src/server/Services/MarketService.luau` | pendiente |
@@ -45,3 +45,13 @@ Alaska siempre prueba en Studio al final de cada hito.
    → aparece "10 × Jitomate saladette … primera 95%" en verde.
 4. Espera unas horas de juego: la frescura baja y el color cambia (amarillo = segunda).
 5. Detén y vuelve a darle F5: el dinero y los lotes siguen ahí (con el paso 1 activado).
+
+## Qué probar de H4 en Studio
+1. F5 y elige **Jefe de bodega**: sale el aviso "Tu bodega es la 101" y su letrero dice tu nombre.
+2. Botón rojo **MI BODEGA** (arriba a la derecha): 10 productos con el precio de la Subasta.
+   Dale **+10** a uno: baja tu dinero y sube "En bodega". Escribe tu precio y Enter.
+3. El **pizarrón de gis** frente a tu bodega muestra producto, precio y cajas.
+4. Con 2 jugadores (Probar → Servidor local, 2 jugadores): el otro se acerca al pizarrón, aprieta
+   **E (Ver precios)** y compra 1 o 5 cajas. A él le baja el dinero, al jefe le sube, y las cajas
+   aparecen en "TU CARGA" del comprador.
+5. Si el jefe se sale, la bodega dice "SE RENTA" y su mercancía queda guardada en su cuenta.

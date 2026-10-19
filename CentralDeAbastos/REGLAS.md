@@ -70,6 +70,12 @@ El código nunca depende de un asset: `src/server/Assets.luau` usa el modelo de
   teletransportar en `CharacterAdded` sin esperar a `ch.Parent == workspace` lo pisa el spawn.
 - **No mover a mano en Studio y luego regenerar con script** sin revisar: se pierde lo que el
   usuario acomodó. Lo que el usuario edita en Studio manda.
+- **UIListLayout ordena por nombre** si no se pone `SortOrder = LayoutOrder` (TextBox y TextButton
+  quedan antes que TextLabel). Ponerlo siempre y dar `LayoutOrder` en el orden de creación.
+- **El MCP corre en otra VM:** `require` desde `execute_luau` da OTRA copia de los servicios. Probar
+  con `ServerStorage.Prueba` o disparando los Remotes desde un cliente del playtest multijugador.
+- **Plugin "MCP server" de Sombra shop (Tienda, v3.1.5)** = copia vieja con inyección de scripts;
+  se desactivó en Gestionar plugins (2026-10-18). Usar solo `MCPPlugin.rbxmx` del fork @chrrxs.
 - **Gustos visuales (letra, colores):** poner muestras en Studio y que el usuario escoja.
 - Textos del juego en **español e inglés** (según `LocaleId` del jugador).
 

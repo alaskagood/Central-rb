@@ -17,6 +17,8 @@ RoleService.start()
 ClockService.start()
 InventoryService.start(ClockService)
 DataService.start()
+require(Services.MarketService).start(ClockService)
+require(Services.BodegaService).start()
 
 -- Solo en Studio: el MCP corre en otra VM y su require da otra copia de los servicios.
 -- ServerStorage.Prueba:Invoke("add", holder, ...) llega al InventoryService real.
@@ -29,9 +31,13 @@ if game:GetService("RunService"):IsStudio() then
 	prueba.Parent = game:GetService("ServerStorage")
 end
 
-local world = Instance.new("Folder")
-world.Name = "CEDA"
-world.Parent = workspace
-NaveBuilder.build(world, CFrame.new(0, 0, 0))
+-- El mapa ya viene construido en el lugar (para verlo y acomodarlo en el editor).
+-- Solo si no existe se arma desde cero; lo que el usuario mueva en Studio manda.
+if not workspace:FindFirstChild("CEDA") then
+	local world = Instance.new("Folder")
+	world.Name = "CEDA"
+	world.Parent = workspace
+	NaveBuilder.build(world, CFrame.new(0, 0, 0))
+end
 
 print("[CEDA] Servidor listo")

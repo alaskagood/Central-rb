@@ -26,6 +26,7 @@ local InventoryService = {}
 
 local holders: { [string]: { Lot } } = {}
 local storage: { [string]: Freshness.Storage } = {}
+local listeners: { (holder: string) -> () } = {}
 
 local function newId(): string
 	return HttpService:GenerateGUID(false)
@@ -42,6 +43,14 @@ local function changed(holder: string)
 	if player then
 		Remotes.get("Inventory"):FireClient(player, holders[holder] or {})
 	end
+	for _, fn in listeners do
+		task.spawn(fn, holder)
+	end
+end
+
+-- Para bodegas y otros holders: `fn(holder)` después de cada cambio.
+function InventoryService.onChanged(fn: (holder: string) -> ())
+	table.insert(listeners, fn)
 end
 
 local function find(holder: string, lotId: string): (Lot?, number)

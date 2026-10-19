@@ -11,6 +11,7 @@ local InventoryService = require(script.Parent.InventoryService)
 local TEMPLATE = {
 	cash = -1, -- -1 = nunca ha elegido oficio; RoleService le da el dinero inicial
 	lots = {},
+	bodegaLots = {}, -- lo que el jefe tenía en su bodega (cualquier número de bodega)
 }
 
 local DataService = {}
@@ -24,11 +25,24 @@ local function snapshot(player: Player, profile: any)
 	if type(cash) == "number" and cash == cash then
 		profile.Data.cash = math.floor(cash)
 	end
-	local lots = {}
-	for _, lot in InventoryService.list(InventoryService.holderOf(player)) do
-		table.insert(lots, table.clone(lot))
+	local function copy(holder: string): { any }
+		local out = {}
+		for _, lot in InventoryService.list(holder) do
+			table.insert(out, table.clone(lot))
+		end
+		return out
 	end
-	profile.Data.lots = lots
+	profile.Data.lots = copy(InventoryService.holderOf(player))
+	local bodega = player:GetAttribute("Bodega")
+	if type(bodega) == "number" then
+		profile.Data.bodegaLots = copy(`b:{bodega}`)
+	end
+end
+
+-- Datos cargados del jugador (nil si todavía no carga o ya se fue).
+function DataService.getData(player: Player): any
+	local profile = profiles[player]
+	return profile and profile.Data
 end
 
 local function onPlayerAdded(player: Player)

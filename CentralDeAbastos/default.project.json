@@ -44,7 +44,7 @@
     },
     "Lighting": {
       "$ignoreUnknownInstances": true,
-      "$properties": { "ClockTime": 22 }
+      "$properties": { "ClockTime": 14 }
     },
     "Teams": { "$className": "Teams" }
   }

@@ -10,6 +10,12 @@ local NAMES = {
 	"RoleRejected", -- servidor → cliente: (reason)
 	"Notify", -- servidor → cliente: (text)
 	"Inventory", -- servidor → cliente: ({Lot}) lo que trae el jugador
+	"MarketPrices", -- servidor → cliente: ({[productId]: precio por unidad}) Subasta del día
+	"MarketBuy", -- cliente → servidor: (productId, units) el jefe compra en la Subasta
+	"SetPrice", -- cliente → servidor: (productId, price) precio de venta en su bodega
+	"BodegaStock", -- servidor → cliente: (number, {Offer}) lo que hay en la bodega del jefe
+	"BodegaOpen", -- servidor → cliente: (number, {Offer}, ownerName, isOwner) ver una bodega
+	"BodegaBuy", -- cliente → servidor: (number, lotId, units) comprar cajas en una bodega
 }
 
 local Remotes = {}

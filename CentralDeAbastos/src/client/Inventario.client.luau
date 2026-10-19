@@ -93,6 +93,35 @@ local function render(lots: { any })
 	end
 end
 
+-- Avisos del servidor (Notify): aparecen arriba al centro y se van solos.
+local toast = Instance.new("TextLabel")
+toast.AnchorPoint = Vector2.new(0.5, 0)
+toast.Position = UDim2.new(0.5, 0, 0, 70)
+toast.Size = UDim2.fromOffset(0, 40)
+toast.AutomaticSize = Enum.AutomaticSize.X
+toast.BackgroundColor3 = Color3.fromRGB(20, 22, 28)
+toast.BackgroundTransparency = 0.15
+toast.Font = Enum.Font.GothamBold
+toast.TextSize = 20
+toast.TextColor3 = Color3.new(1, 1, 1)
+toast.Visible = false
+toast.Parent = gui
+Instance.new("UICorner", toast).CornerRadius = UDim.new(0, 8)
+local tpad = Instance.new("UIPadding", toast)
+tpad.PaddingLeft, tpad.PaddingRight = UDim.new(0, 14), UDim.new(0, 14)
+local toastId = 0
+Remotes.get("Notify").OnClientEvent:Connect(function(text: string)
+	toastId += 1
+	local mine = toastId
+	toast.Text = text
+	toast.Visible = true
+	task.delay(4, function()
+		if toastId == mine then
+			toast.Visible = false
+		end
+	end)
+end)
+
 player:GetAttributeChangedSignal("Cash"):Connect(refreshCash)
 Remotes.get("Inventory").OnClientEvent:Connect(render)
 refreshCash()
