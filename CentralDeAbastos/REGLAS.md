@@ -54,7 +54,9 @@ El código nunca depende de un asset: `src/server/Assets.luau` usa el modelo de
 - **"Authentication required to access Asset"** con modelos de otros autores (los de Roblox sí
   bajan) o "Error al guardar" al publicar: revisar `%LOCALAPPDATA%\Roblox\logs`. Si sale
   `401 Unauthorized`, el inicio de sesión de Studio caducó: **cerrar sesión y volver a entrar**
-  (reiniciar Studio no basta). No es culpa del modelo.
+  (reiniciar Studio no basta). Si el log dice `login (automatic)`, Studio reusó el token viejo:
+  cerrar Studio y borrar las credenciales `RobloxStudioAuth*` de Windows (`cmdkey`) para que pida
+  contraseña. No es culpa del modelo.
 - **Monetización:** `manage_monetization` del MCP dio "Unknown error"; usar la API de Open Cloud
   directa. La llave (`ROBLOX_OPEN_CLOUD_API_KEY`) necesita desde el inicio los permisos
   *asset read/write*, *game-pass read/write* y *developer-product read/write*.
