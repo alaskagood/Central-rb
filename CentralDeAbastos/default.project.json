@@ -1,0 +1,51 @@
+{
+  "name": "CentralDeAbastos",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "Shared": { "$path": "src/shared" }
+    },
+    "ServerScriptService": {
+      "Server": { "$path": "src/server" }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Client": { "$path": "src/client" }
+      }
+    },
+    "ServerStorage": {
+      "$ignoreUnknownInstances": true,
+      "Assets": {
+        "$className": "Folder",
+        "$ignoreUnknownInstances": true
+      }
+    },
+    "Workspace": {
+      "$ignoreUnknownInstances": true,
+      "Piso": {
+        "$className": "Part",
+        "$properties": {
+          "Anchored": true,
+          "Size": [2048, 2, 2048],
+          "Position": [0, -1, 0],
+          "Color": [0.33, 0.33, 0.32],
+          "Material": "Asphalt"
+        }
+      },
+      "SpawnLocation": {
+        "$className": "SpawnLocation",
+        "$properties": {
+          "Anchored": true,
+          "Neutral": true,
+          "Size": [12, 1, 12],
+          "Position": [0, 0.5, 260]
+        }
+      }
+    },
+    "Lighting": {
+      "$ignoreUnknownInstances": true,
+      "$properties": { "ClockTime": 22 }
+    },
+    "Teams": { "$className": "Teams" }
+  }
+}
